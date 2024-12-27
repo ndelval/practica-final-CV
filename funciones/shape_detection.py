@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from concurrent.futures import ThreadPoolExecutor
 
 def detect_shapes_grayscale(gray):
     """
@@ -33,13 +34,11 @@ def detect_shapes_grayscale(gray):
         9: "nonagon"
     }
 
-    detected_shapes = []
-
-    for contour in contours:
+    def process_contour(contour):
         # Filtrar contornos muy pequeños o grandes
         area = cv2.contourArea(contour)
         if area < 500 or area > 0.9 * gray.shape[0] * gray.shape[1]:
-            continue
+            return None
 
         # Aproximar el contorno para simplificarlo
         epsilon = 0.02 * cv2.arcLength(contour, True)
@@ -49,8 +48,16 @@ def detect_shapes_grayscale(gray):
         vertices = len(approx)
 
         # Clasificar figura usando el diccionario
-        shape_name = vertex_to_shape.get(vertices, "polygon")
-        detected_shapes.append(shape_name)
+        return vertex_to_shape.get(vertices, "polygon")
+
+    detected_shapes = []
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = [executor.submit(process_contour, contour) for contour in contours]
+        for future in futures:
+            shape_name = future.result()
+            if shape_name:
+                detected_shapes.append(shape_name)
 
     # Retornar la lista de figuras detectadas y el resultado
     if detected_shapes:

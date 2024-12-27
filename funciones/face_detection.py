@@ -4,7 +4,7 @@ import numpy as np
 from funciones.utils import *
 
 
-def detect_and_crop_faces(image):
+def detect_and_crop_faces(image,face_cascade):
     """
     Detecta y recorta las caras en una imagen.
     Args:
@@ -12,9 +12,6 @@ def detect_and_crop_faces(image):
     Returns:
         cropped_faces: Lista de caras recortadas
     """
-    # Cargar el clasificador pre-entrenado de OpenCV
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    
     # Detectar las caras
     faces = face_cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
     
