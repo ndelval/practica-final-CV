@@ -6,7 +6,7 @@ Este proyecto implementa un sistema completo de procesamiento de video en tiempo
 - **Reconocimiento facial**: Utilizando el modelo LBPH para identificar rostros.
 - **Detección de movimiento**: Implementando un modelo MOG2 para identificar objetos en movimiento.
 - **Calibración de cámara**: Usando un tablero de ajedrez para calcular parámetros intrínsecos y coeficientes de distorsión.
-- **Detección de figuras geométricas**: Análisis de contornos para identificar formas geométricas en imágenes en escala de grises.
+- **Detección de figuras geométricas**: Análisis de contornos para identificar formas geométricas en imágenes.
 
 El proyecto está diseñado para procesar video en tiempo real, combinando tareas como reconocimiento facial, detección de movimiento y análisis de figuras.
 
@@ -43,18 +43,10 @@ El proyecto está diseñado para procesar video en tiempo real, combinando tarea
 
 ### Calibración de cámara
 
-Para calibrar la cámara con imágenes de un tablero de ajedrez, ejecuta:
+Para calibrar la cámara con imágenes de un tablero de ajedrezy luego iniciar el procesamiento de video en tiempo real, ejecuta:
 
 ```bash
 python main.py --calibrate
-```
-
-### Procesamiento de video
-
-Para iniciar el procesamiento de video en tiempo real:
-
-```bash
-python main.py
 ```
 
 Presiona:
