@@ -26,7 +26,7 @@ def detect_shapes_grayscale(gray):
     # Diccionario de mapeo de vértices a nombres de figuras
     vertex_to_shape = {
         3: "triangle",
-        4: "square/rectangle",  # Se puede afinar más adelante
+        4: "square/rectangle",  
         5: "pentagon",
         6: "hexagon",
         7: "heptagon",
@@ -35,19 +35,15 @@ def detect_shapes_grayscale(gray):
     }
 
     def process_contour(contour):
-        # Filtrar contornos muy pequeños o grandes
         area = cv2.contourArea(contour)
         if area < 500 or area > 0.9 * gray.shape[0] * gray.shape[1]:
             return None
 
-        # Aproximar el contorno para simplificarlo
         epsilon = 0.02 * cv2.arcLength(contour, True)
         approx = cv2.approxPolyDP(contour, epsilon, True)
 
-        # Obtener el número de vértices
         vertices = len(approx)
 
-        # Clasificar figura usando el diccionario
         return vertex_to_shape.get(vertices, "polygon")
 
     detected_shapes = []
@@ -59,7 +55,6 @@ def detect_shapes_grayscale(gray):
             if shape_name:
                 detected_shapes.append(shape_name)
 
-    # Retornar la lista de figuras detectadas y el resultado
     if detected_shapes:
         return detected_shapes, ", ".join(detected_shapes)
     else:

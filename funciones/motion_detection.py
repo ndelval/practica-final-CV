@@ -4,14 +4,14 @@ import numpy as np
 # Configuración del modelo de fondo MOG2
 def configure_background_subtractor():
     return cv2.createBackgroundSubtractorMOG2(
-        history=500,  # Número de frames para construir el modelo de fondo
-        varThreshold=16,  # Umbral para detectar el fondo
-        detectShadows=True  # Detectar sombras
+        history=500,  
+        varThreshold=16,
+        detectShadows=True 
     )
 
 # Configuración del filtro de Kalman
 def configure_kalman_filter():
-    kf = cv2.KalmanFilter(4, 2)  # Estado: [x, y, vx, vy], Medición: [x, y]
+    kf = cv2.KalmanFilter(4, 2) 
 
     # Matriz de transición (posición y velocidad constantes)
     kf.transitionMatrix = np.array([
