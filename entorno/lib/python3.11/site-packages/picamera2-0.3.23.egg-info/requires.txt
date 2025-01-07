@@ -1,0 +1,15 @@
+PiDNG
+av
+jsonschema
+libarchive-c
+numpy
+piexif
+pillow
+python-prctl
+simplejpeg
+tqdm
+v4l2-python3
+
+[gui]
+PyQt5
+pyopengl

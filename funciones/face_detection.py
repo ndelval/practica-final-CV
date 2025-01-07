@@ -22,7 +22,7 @@ def detect_and_crop_faces(image,face_cascade):
     return cropped_faces, faces
 
 
-def save_cropped_faces(person_path, person_clean_path, person_name):
+def save_cropped_faces(person_path, person_clean_path, person_name, face_cascade):
     """
     Detecta y guarda las caras recortadas de una persona.
     Args:
@@ -35,7 +35,7 @@ def save_cropped_faces(person_path, person_clean_path, person_name):
         face_img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         
         if face_img is not None:
-            cropped_faces, _ = detect_and_crop_faces(face_img)
+            cropped_faces, _ = detect_and_crop_faces(face_img, face_cascade)
             if cropped_faces:
                 cropped_face = cropped_faces[0]
                 clean_image_path = os.path.join(person_clean_path, f"{person_name}_face{i}.jpg")
@@ -43,7 +43,7 @@ def save_cropped_faces(person_path, person_clean_path, person_name):
                 print(f"Cara recortada y guardada en: {clean_image_path}")
 
 
-def prepare_clean_train_folder(base_path='./train', clean_path='./train_limpio'):
+def prepare_clean_train_folder(face_cascade, base_path='./train', clean_path='./train_limpio'):
     """
     Prepara el directorio de entrenamiento limpio.
     Args:
@@ -56,7 +56,7 @@ def prepare_clean_train_folder(base_path='./train', clean_path='./train_limpio')
         os.makedirs(person_clean_path, exist_ok=True)
 
         if os.path.isdir(person_path):
-            save_cropped_faces(person_path, person_clean_path, person_name)
+            save_cropped_faces(person_path, person_clean_path, person_name, face_cascade)
 
 
 def train_model():
